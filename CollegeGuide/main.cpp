@@ -32,7 +32,6 @@ void lineloops(float w, float x, float y, float z)
         glVertex2f(y, x);
         glVertex2f(y, z);
         glVertex2f(w, z);
-
     glEnd();
 }
 
@@ -42,12 +41,12 @@ void display_ground()
 	glColor3f(0.9, 0.9, 0.9);
 	// hole 1
 	glBegin(GL_POLYGON);
-    glVertex2f(3.3, 2.2);
-    glVertex2f(5.3, 2.2);
-    glVertex2f(5.3, 4.2);
-    glVertex2f(4.2, 5.3);
-    glVertex2f(2.2, 5.3);
-    glVertex2f(2.2, 3.3);
+        glVertex2f(3.3, 2.2);
+        glVertex2f(5.3, 2.2);
+        glVertex2f(5.3, 4.2);
+        glVertex2f(4.2, 5.3);
+        glVertex2f(2.2, 5.3);
+        glVertex2f(2.2, 3.3);
     glEnd();
     glColor3f(1.0, 0.0, 1.0);
 	// 1
@@ -59,13 +58,6 @@ void display_ground()
     glVertex2f(0.0, 3.0);
     glEnd();
     // 2
-   /* glBegin(GL_LINE_LOOP);
-    glVertex2f(3.0, 0.0);
-    glVertex2f(4.0, 0.0);
-    glVertex2f(4.0, 1.5);
-    glVertex2f(3.0, 1.5);
-    glEnd();
-    */
     lineloops(3.0,0.0,4.0,1.5);
     // 3
     lineloops(4.0,0.0,5.0,1.5);
@@ -75,8 +67,8 @@ void display_ground()
     lineloops(6.0,0.0,7.0,1.5);
     // line connecting 5 and 19
     glBegin(GL_LINES);
-    glVertex2f(7.0, 1.5);
-    glVertex2f(7.0, 2.0);
+        glVertex2f(7.0, 1.5);
+        glVertex2f(7.0, 2.0);
     glEnd();
     // 6
     lineloops(0.0,3.0,1.5,4.0);
@@ -88,8 +80,8 @@ void display_ground()
     lineloops(0.0,6.0,1.5,7.0);
     // line connecting 9 and 32
     glBegin(GL_LINES);
-    glVertex2f(1.5, 7.0);
-    glVertex2f(2.0, 7.0);
+        glVertex2f(1.5, 7.0);
+        glVertex2f(2.0, 7.0);
     glEnd();
     // 11
     lineloops(5.8,4.0,7.0,4.8);
@@ -109,21 +101,21 @@ void display_ground()
     lineloops(9.62,5.6,10.5,6.6);
     // 19
     glBegin(GL_LINE_LOOP);
-    glVertex2f(7.0, 2.0);
-    glVertex2f(8.0, 2.0);
-    glVertex2f(8.0, 3.0);
-    glVertex2f(8.75, 3.0);
-    glVertex2f(8.75, 4.0);
-    glVertex2f(7.0, 4.0);
+        glVertex2f(7.0, 2.0);
+        glVertex2f(8.0, 2.0);
+        glVertex2f(8.0, 3.0);
+        glVertex2f(8.75, 3.0);
+        glVertex2f(8.75, 4.0);
+        glVertex2f(7.0, 4.0);
     glEnd();
     // 20
     glBegin(GL_LINE_LOOP);
-    glVertex2f(8.75, 3.0);
-    glVertex2f(9.0, 3.0);
-    glVertex2f(9.0, 2.0);
-    glVertex2f(10.5, 2.0);
-    glVertex2f(10.5, 4.0);
-    glVertex2f(8.75, 4.0);
+        glVertex2f(8.75, 3.0);
+        glVertex2f(9.0, 3.0);
+        glVertex2f(9.0, 2.0);
+        glVertex2f(10.5, 2.0);
+        glVertex2f(10.5, 4.0);
+        glVertex2f(8.75, 4.0);
     glEnd();
     // 27
     lineloops(5.6,7.0,6.6,7.87);
@@ -137,12 +129,12 @@ void display_ground()
     lineloops(2.0,9.0,4.0,10.5);
     // 32
     glBegin(GL_LINE_LOOP);
-    glVertex2f(2.0, 7.0);
-    glVertex2f(3.5, 7.0);
-    glVertex2f(3.5, 9.0);
-    glVertex2f(3.0, 9.0);
-    glVertex2f(3.0, 8.0);
-    glVertex2f(2.0, 8.0);
+        glVertex2f(2.0, 7.0);
+        glVertex2f(3.5, 7.0);
+        glVertex2f(3.5, 9.0);
+        glVertex2f(3.0, 9.0);
+        glVertex2f(3.0, 8.0);
+        glVertex2f(2.0, 8.0);
     glEnd();
     // 33
     lineloops(3.5, 11.5, 6.5, 14.5);
@@ -171,18 +163,18 @@ void display_ground()
 
     // hole 2
     glColor3f(0.9, 0.9, 0.9);
-	glBegin(GL_POLYGON);
-	glVertex2f(4.0, 7.05);
-	glVertex2f(5.5, 7.05);
-	glVertex2f(5.5, 10.5);
-	glVertex2f(4.0, 10.5);
+        glBegin(GL_POLYGON);
+        glVertex2f(4.0, 7.05);
+        glVertex2f(5.5, 7.05);
+        glVertex2f(5.5, 10.5);
+        glVertex2f(4.0, 10.5);
 	glEnd();
     // hole 3
     glBegin(GL_POLYGON);
-	glVertex2f(7.05, 4.05);
-	glVertex2f(10.5, 4.05);
-	glVertex2f(10.5, 5.6);
-	glVertex2f(7.05, 5.6);
+        glVertex2f(7.05, 4.05);
+        glVertex2f(10.5, 4.05);
+        glVertex2f(10.5, 5.6);
+        glVertex2f(7.05, 5.6);
 	glEnd();
 	// hole 4
 	glBegin(GL_TRIANGLE_STRIP);
@@ -201,6 +193,8 @@ void display_ground()
 	// 26
 	lineloops(17.5, 7.4, 19.0, 9.4);
 	//21
+	//21
+	glColor3f(1.0, 0.0, 1.0);
 	lineloops(11.5,3.5,14.5, 6.6);
 	//22
 	lineloops(14.5,3.5,17.5,6.6);
@@ -215,8 +209,6 @@ void display_ground()
     glEnd();
     //24
     lineloops(19.0,0.0,23.0,5.5);
-
-
 
 
 
@@ -236,26 +228,26 @@ void rooms()
 	drawBitmapText("Ofiice", 0.0, 9.5);
 	drawBitmapText("Seminar Hall 1", 0.0, 8.0);
 	drawBitmapText("Seminar hall 2", 0.0, 6.5);
-	drawBitmapText("Washroom - Boys", 0.0, 5.0);
-	drawBitmapText("Washroom - Girls", 0.0, 3.5);
-	drawBitmapText("Staff Room 001", 0.0, 2.0);
-	drawBitmapText("Staff Room 002", 0.0, 0.5);
-	drawBitmapText("Staff Room 003", 0.0, -1.0);
-	drawBitmapText("Staff Room 004", 16.0, 21.5);
-	drawBitmapText("Staff Room 005", 16.0, 20.0);
-	drawBitmapText("Staff Room 006", 16.0, 18.5);
-	drawBitmapText("Staff Room 007", 16.0, 17.0);
-	drawBitmapText("Staff Room 008", 16.0, 15.5);
-	drawBitmapText("Staff Room 009", 16.0, 14.0);
-	drawBitmapText("Staff Room 010", 16.0, 12.5);
-	drawBitmapText("Staff Room 011", 16.0, 11.0);
-	drawBitmapText("Staff Room 012", 16.0, 9.5);
-	drawBitmapText("Staff Room 013", 16.0, 8.0);
-	drawBitmapText("Staff Room 014", 16.0, 6.5);
-	drawBitmapText("Staff Room 015", 16.0, 5.0);
-	drawBitmapText("Staff Room 016", 16.0, 3.5);
-	drawBitmapText("Staff Room 017", 16.0, 2.0);
-	drawBitmapText("Staff Room 018", 16.0, 0.5);
+	drawBitmapText("Staff Room 001", 0.0, 5.0);
+	drawBitmapText("Staff Room 002", 0.0, 3.5);
+	drawBitmapText("Staff Room 003", 0.0, 2.0);
+	drawBitmapText("Staff Room 004", 0.0, 0.5);
+	drawBitmapText("Staff Room 005", 0.0, -1.0);
+	drawBitmapText("Staff Room 006", 16.0, 21.5);
+	drawBitmapText("Staff Room 007", 16.0, 20.0);
+	drawBitmapText("Staff Room 008", 16.0, 18.5);
+	drawBitmapText("Staff Room 009", 16.0, 17.0);
+	drawBitmapText("Staff Room 010", 16.0, 15.5);
+	drawBitmapText("Staff Room 011", 16.0, 14.0);
+	drawBitmapText("Staff Room 012", 16.0, 12.5);
+	drawBitmapText("Staff Room 013", 16.0, 11.0);
+	drawBitmapText("Staff Room 014", 16.0, 9.5);
+	drawBitmapText("Staff Room 015", 16.0, 8.0);
+	drawBitmapText("Staff Room 016", 16.0, 6.5);
+	drawBitmapText("Staff Room 017", 16.0, 5.0);
+	drawBitmapText("Staff Room 018", 16.0, 3.5);
+	drawBitmapText("Washroom - Boys", 16.0, 2.0);
+	drawBitmapText("Washroom - Girls", 16.0, 0.5);
 
 }
 
@@ -267,7 +259,6 @@ void display_dest()
 	rooms();
 	glutSwapBuffers();
 	glutMouseFunc(mouse);
-	//glFlush;
 }
 
 void display_src()
@@ -278,7 +269,6 @@ void display_src()
 	rooms();
 	glutSwapBuffers();
 	glutMouseFunc(mouse);
-	//glFlush;
 }
 
 void keyboard(unsigned char key,int x,int y)
@@ -333,8 +323,7 @@ int main(int argc, char *argv[])
 
 	glutDisplayFunc(display);
 	glutKeyboardFunc(keyboard);
-	if (flag == 1)
-        display_dest();
+
 	myinit();
 	glutMainLoop();
 	return 0;

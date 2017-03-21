@@ -1,9 +1,12 @@
 # depslib dependency file v1.0
 1490125664 source:/home/nandita/Documents/Open GL projets/CollegeGuide/main.cpp
+<<<<<<< HEAD
 	<iostream>
 	<GL/glut.h>
 
 1490128751 source:/home/mamta/Programming/CG/College-Guide-master/CollegeGuide/main.cpp
+=======
+>>>>>>> a88435eb6a2ddae0024e2ea1ed142563b4345baf
 	<iostream>
 	<GL/glut.h>
 
