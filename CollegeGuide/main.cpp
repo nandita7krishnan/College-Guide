@@ -25,6 +25,20 @@ void mouse(int button, int state, int x, int y)
 
 }
 
+<<<<<<< HEAD
+=======
+void lineloops(float w, float x, float y, float z)
+{
+    glBegin(GL_LINE_LOOP);
+        glVertex2f(w, x);
+        glVertex2f(y, x);
+        glVertex2f(y, z);
+        glVertex2f(w, z);
+
+    glEnd();
+}
+
+>>>>>>> f42a7578a09e2f4634428c64c51505c36a521925
 void display_ground()
 {
     glClear(GL_COLOR_BUFFER_BIT);
@@ -48,12 +62,17 @@ void display_ground()
     glVertex2f(0.0, 3.0);
     glEnd();
     // 2
+<<<<<<< HEAD
     glBegin(GL_LINE_LOOP);
+=======
+   /* glBegin(GL_LINE_LOOP);
+>>>>>>> f42a7578a09e2f4634428c64c51505c36a521925
     glVertex2f(3.0, 0.0);
     glVertex2f(4.0, 0.0);
     glVertex2f(4.0, 1.5);
     glVertex2f(3.0, 1.5);
     glEnd();
+<<<<<<< HEAD
     // 3
     glBegin(GL_LINE_LOOP);
     glVertex2f(4.0, 0.0);
@@ -75,12 +94,23 @@ void display_ground()
     glVertex2f(7.0, 1.5);
     glVertex2f(6.0, 1.5);
     glEnd();
+=======
+    */
+    lineloops(3.0,0.0,4.0,1.5);
+    // 3
+    lineloops(4.0,0.0,5.0,1.5);
+    // 4
+    lineloops(5.0,0.0,6.0,1.5);
+    // 5
+    lineloops(6.0,0.0,7.0,1.5);
+>>>>>>> f42a7578a09e2f4634428c64c51505c36a521925
     // line connecting 5 and 19
     glBegin(GL_LINES);
     glVertex2f(7.0, 1.5);
     glVertex2f(7.0, 2.0);
     glEnd();
     // 6
+<<<<<<< HEAD
     glBegin(GL_LINE_LOOP);
     glVertex2f(0.0, 3.0);
     glVertex2f(1.5, 3.0);
@@ -108,12 +138,22 @@ void display_ground()
     glVertex2f(1.5, 7.0);
     glVertex2f(0.0, 7.0);
     glEnd();
+=======
+    lineloops(0.0,3.0,1.5,4.0);
+    // 7
+    lineloops(0.0,4.0,1.5,5.0);
+    // 8
+    lineloops(0.0,5.0,1.5,6.0);
+    // 9
+    lineloops(0.0,6.0,1.5,7.0);
+>>>>>>> f42a7578a09e2f4634428c64c51505c36a521925
     // line connecting 9 and 32
     glBegin(GL_LINES);
     glVertex2f(1.5, 7.0);
     glVertex2f(2.0, 7.0);
     glEnd();
     // 11
+<<<<<<< HEAD
     glBegin(GL_LINE_LOOP);
     glVertex2f(5.8, 4.0);
     glVertex2f(7.0, 4.0);
@@ -169,6 +209,23 @@ void display_ground()
     glVertex2f(10.5, 6.6);
     glVertex2f(9.62, 6.6);
     glEnd();
+=======
+    lineloops(5.8,4.0,7.0,4.8);
+    // 12
+    lineloops(5.8,4.8,7.0,5.6);
+    // 13
+    lineloops(4.0,5.8,4.8,7.0);
+    // 14
+    lineloops(4.8,5.8,5.6,7.0);
+    // 15
+    lineloops(7.0,5.6,7.87,6.6);
+	// 16
+	lineloops(7.87,5.6,8.75,6.6);
+    // 17
+    lineloops(8.75,5.6,9.62,6.6);
+    // 18
+    lineloops(9.62,5.6,10.5,6.6);
+>>>>>>> f42a7578a09e2f4634428c64c51505c36a521925
     // 19
     glBegin(GL_LINE_LOOP);
     glVertex2f(7.0, 2.0);
@@ -188,6 +245,7 @@ void display_ground()
     glVertex2f(8.75, 4.0);
     glEnd();
     // 27
+<<<<<<< HEAD
     glBegin(GL_LINE_LOOP);
     glVertex2f(5.6, 7.0);
     glVertex2f(6.6, 7.0);
@@ -222,6 +280,17 @@ void display_ground()
     glVertex2f(4.0, 10.5);
     glVertex2f(2.0, 10.5);
     glEnd();
+=======
+    lineloops(5.6,7.0,6.6,7.87);
+    // 28
+    lineloops(5.6,7.87,6.6,8.75);
+    // 29
+    lineloops(5.6,8.75,6.6,9.62);
+    // 30
+    lineloops(5.6,9.62,6.6,10.5);
+    // 31
+    lineloops(2.0,9.0,4.0,10.5);
+>>>>>>> f42a7578a09e2f4634428c64c51505c36a521925
     // 32
     glBegin(GL_LINE_LOOP);
     glVertex2f(2.0, 7.0);
@@ -322,6 +391,7 @@ void keyboard(unsigned char key,int x,int y)
 void display()
 {
     glClear(GL_COLOR_BUFFER_BIT);
+<<<<<<< HEAD
     glColor3f(0.0,0.5,0.0);
 	drawBitmapText("COLLEGE GUIDE", 8.0,15.0);
 	glBegin(GL_POLYGON);
@@ -336,6 +406,23 @@ void display()
 	drawBitmapText("Nandita Krishnan         - 1PE14CS057", 2.0,3.0);
 	glColor3f(0.5,1.0,0.0);
 	drawBitmapText("Mamta Mariam Harris - 1PE14CS069", 2.0,2.0);
+=======
+    glColor3f(0.5,1.0,0.5);
+    glBegin(GL_POLYGON);
+    glVertex2f(-3.0,15.0);
+    glVertex2f(-3.0,20.0);
+    glVertex2f(30.0,20.0);
+    glVertex2f(30.0,15.0);
+    glEnd();
+	glColor3f(0.0,0.5,0.0);
+	drawBitmapText("COLLEGE GUIDE", 8.0,17.0);
+    glColor3f(0.5,1.0,0.0);
+	drawBitmapText("press spacebar to continue", 7.0,13.5);
+    glColor3f(0.0,0.5,0.0);
+	drawBitmapText("Krishnan Nandita         - 1PE14CS057", -1.0,3.0);
+    glColor3f(0.0,0.5,0.0);
+    drawBitmapText("Mamta Mariam Harris - 1PE14CS069", -1.0,1.5);
+>>>>>>> f42a7578a09e2f4634428c64c51505c36a521925
 	glutSwapBuffers();
     df=1;
 	glFlush();
