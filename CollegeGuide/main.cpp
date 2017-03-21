@@ -322,20 +322,21 @@ void keyboard(unsigned char key,int x,int y)
 void display()
 {
     glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(0.0,0.5,0.0);
-	drawBitmapText("COLLEGE GUIDE", 8.0,15.0);
-	glBegin(GL_POLYGON);
-	    glVertex2f(6.0,12.5);
-        glVertex2f(6.0,14.0);
-        glVertex2f(19.7,14.0);
-        glVertex2f(19.7,12.5);
+    glColor3f(0.5,1.0,0.5);
+    glBegin(GL_POLYGON);
+    glVertex2f(-3.0,15.0);
+    glVertex2f(-3.0,20.0);
+    glVertex2f(30.0,20.0);
+    glVertex2f(30.0,15.0);
     glEnd();
-	glColor3f(0.5,1.0,0.5);
-	drawBitmapText("Press Spacebar to Continue", 7.0,13.0);
-	glColor3f(0.5,1.0,0.0);
-	drawBitmapText("Nandita Krishnan         - 1PE14CS057", 2.0,3.0);
-	glColor3f(0.5,1.0,0.0);
-	drawBitmapText("Mamta Mariam Harris - 1PE14CS069", 2.0,2.0);
+    glColor3f(0.0,0.5,0.0);
+	drawBitmapText("COLLEGE GUIDE", 8.0,17.0);
+    glColor3f(0.5,1.0,0.0);
+	drawBitmapText("press spacebar to continue", 7.0,13.5);
+    glColor3f(0.0,0.5,0.0);
+	drawBitmapText("Krishnan Nandita         - 1PE14CS057", -1.0,3.0);
+    glColor3f(0.0,0.5,0.0);
+	drawBitmapText("Mamta Mariam Harris - 1PE14CS069", -1.0,1.5);
 	glutSwapBuffers();
     df=1;
 	glFlush();
