@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1490040009 source:/home/nandita/Documents/Open GL projets/CollegeGuide/main.cpp
+	<iostream>
+	<GL/glut.h>
+
