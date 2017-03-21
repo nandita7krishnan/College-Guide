@@ -25,6 +25,17 @@ void mouse(int button, int state, int x, int y)
 
 }
 
+void lineloops(float w, float x, float y, float z)
+{
+    glBegin(GL_LINE_LOOP);
+        glVertex2f(w, x);
+        glVertex2f(y, x);
+        glVertex2f(y, z);
+        glVertex2f(w, z);
+
+    glEnd();
+}
+
 void display_ground()
 {
     glClear(GL_COLOR_BUFFER_BIT);
@@ -48,127 +59,54 @@ void display_ground()
     glVertex2f(0.0, 3.0);
     glEnd();
     // 2
-    glBegin(GL_LINE_LOOP);
+   /* glBegin(GL_LINE_LOOP);
     glVertex2f(3.0, 0.0);
     glVertex2f(4.0, 0.0);
     glVertex2f(4.0, 1.5);
     glVertex2f(3.0, 1.5);
     glEnd();
+    */
+    lineloops(3.0,0.0,4.0,1.5);
     // 3
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(4.0, 0.0);
-    glVertex2f(5.0, 0.0);
-    glVertex2f(5.0, 1.5);
-    glVertex2f(4.0, 1.5);
-    glEnd();
+    lineloops(4.0,0.0,5.0,1.5);
     // 4
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(5.0, 0.0);
-    glVertex2f(6.0, 0.0);
-    glVertex2f(6.0, 1.5);
-    glVertex2f(5.0, 1.5);
-    glEnd();
+    lineloops(5.0,0.0,6.0,1.5);
     // 5
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(6.0, 0.0);
-    glVertex2f(7.0, 0.0);
-    glVertex2f(7.0, 1.5);
-    glVertex2f(6.0, 1.5);
-    glEnd();
+    lineloops(6.0,0.0,7.0,1.5);
     // line connecting 5 and 19
     glBegin(GL_LINES);
     glVertex2f(7.0, 1.5);
     glVertex2f(7.0, 2.0);
     glEnd();
     // 6
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(0.0, 3.0);
-    glVertex2f(1.5, 3.0);
-    glVertex2f(1.5, 4.0);
-    glVertex2f(0.0, 4.0);
-    glEnd();
+    lineloops(0.0,3.0,1.5,4.0);
     // 7
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(0.0, 4.0);
-    glVertex2f(1.5, 4.0);
-    glVertex2f(1.5, 5.0);
-    glVertex2f(0.0, 5.0);
-    glEnd();
+    lineloops(0.0,4.0,1.5,5.0);
     // 8
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(0.0, 5.0);
-    glVertex2f(1.5, 5.0);
-    glVertex2f(1.5, 6.0);
-    glVertex2f(0.0, 6.0);
-    glEnd();
+    lineloops(0.0,5.0,1.5,6.0);
     // 9
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(0.0, 6.0);
-    glVertex2f(1.5, 6.0);
-    glVertex2f(1.5, 7.0);
-    glVertex2f(0.0, 7.0);
-    glEnd();
+    lineloops(0.0,6.0,1.5,7.0);
     // line connecting 9 and 32
     glBegin(GL_LINES);
     glVertex2f(1.5, 7.0);
     glVertex2f(2.0, 7.0);
     glEnd();
     // 11
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(5.8, 4.0);
-    glVertex2f(7.0, 4.0);
-    glVertex2f(7.0, 4.8);
-    glVertex2f(5.8, 4.8);
-    glEnd();
+    lineloops(5.8,4.0,7.0,4.8);
     // 12
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(5.8, 4.8);
-    glVertex2f(7.0, 4.8);
-    glVertex2f(7.0, 5.6);
-    glVertex2f(5.8, 5.6);
-    glEnd();
+    lineloops(5.8,4.8,7.0,5.6);
     // 13
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(4.0, 5.8);
-    glVertex2f(4.8, 5.8);
-    glVertex2f(4.8, 7.0);
-    glVertex2f(4.0, 7.0);
-    glEnd();
+    lineloops(4.0,5.8,4.8,7.0);
     // 14
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(4.8, 5.8);
-    glVertex2f(5.6, 5.8);
-    glVertex2f(5.6, 7.0);
-    glVertex2f(4.8, 7.0);
-    glEnd();
-	// 15
-	glBegin(GL_LINE_LOOP);
-    glVertex2f(7.0, 5.6);
-    glVertex2f(7.87, 5.6);
-    glVertex2f(7.87, 6.6);
-    glVertex2f(7.0, 6.6);
-    glEnd();
+    lineloops(4.8,5.8,5.6,7.0);
+    // 15
+    lineloops(7.0,5.6,7.87,6.6);
 	// 16
-	glBegin(GL_LINE_LOOP);
-    glVertex2f(7.87, 5.6);
-    glVertex2f(8.75, 5.6);
-    glVertex2f(8.75, 6.6);
-    glVertex2f(7.87, 6.6);
-    glEnd();
+	lineloops(7.87,5.6,8.75,6.6);
     // 17
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(8.75, 5.6);
-    glVertex2f(9.62, 5.6);
-    glVertex2f(9.62, 6.6);
-    glVertex2f(8.75, 6.6);
-    glEnd();
-	// 18
-	glBegin(GL_LINE_LOOP);
-    glVertex2f(9.62, 5.6);
-    glVertex2f(10.5, 5.6);
-    glVertex2f(10.5, 6.6);
-    glVertex2f(9.62, 6.6);
-    glEnd();
+    lineloops(8.75,5.6,9.62,6.6);
+    // 18
+    lineloops(9.62,5.6,10.5,6.6);
     // 19
     glBegin(GL_LINE_LOOP);
     glVertex2f(7.0, 2.0);
@@ -188,40 +126,15 @@ void display_ground()
     glVertex2f(8.75, 4.0);
     glEnd();
     // 27
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(5.6, 7.0);
-    glVertex2f(6.6, 7.0);
-    glVertex2f(6.6, 7.87);
-    glVertex2f(5.6, 7.87);
-    glEnd();
+    lineloops(5.6,7.0,6.6,7.87);
     // 28
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(5.6, 7.87);
-    glVertex2f(6.6, 7.87);
-    glVertex2f(6.6, 8.75);
-    glVertex2f(5.6, 8.75);
-    glEnd();
+    lineloops(5.6,7.87,6.6,8.75);
     // 29
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(5.6, 8.75);
-    glVertex2f(6.6, 8.75);
-    glVertex2f(6.6, 9.62);
-    glVertex2f(5.6, 9.62);
-    glEnd();
+    lineloops(5.6,8.75,6.6,9.62);
     // 30
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(5.6, 9.62);
-    glVertex2f(6.6, 9.62);
-    glVertex2f(6.6, 10.5);
-    glVertex2f(5.6, 10.5);
-    glEnd();
+    lineloops(5.6,9.62,6.6,10.5);
     // 31
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(2.0, 9.0);
-    glVertex2f(4.0, 9.0);
-    glVertex2f(4.0, 10.5);
-    glVertex2f(2.0, 10.5);
-    glEnd();
+    lineloops(2.0,9.0,4.0,10.5);
     // 32
     glBegin(GL_LINE_LOOP);
     glVertex2f(2.0, 7.0);
@@ -329,14 +242,14 @@ void display()
     glVertex2f(30.0,20.0);
     glVertex2f(30.0,15.0);
     glEnd();
-    glColor3f(0.0,0.5,0.0);
+	glColor3f(0.0,0.5,0.0);
 	drawBitmapText("COLLEGE GUIDE", 8.0,17.0);
     glColor3f(0.5,1.0,0.0);
 	drawBitmapText("press spacebar to continue", 7.0,13.5);
     glColor3f(0.0,0.5,0.0);
 	drawBitmapText("Krishnan Nandita         - 1PE14CS057", -1.0,3.0);
     glColor3f(0.0,0.5,0.0);
-	drawBitmapText("Mamta Mariam Harris - 1PE14CS069", -1.0,1.5);
+    drawBitmapText("Mamta Mariam Harris - 1PE14CS069", -1.0,1.5);
 	glutSwapBuffers();
     df=1;
 	glFlush();
