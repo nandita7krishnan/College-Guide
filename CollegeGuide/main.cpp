@@ -135,6 +135,12 @@ void display_ground()
     lineloops(5.6,9.62,6.6,10.5);
     // 31
     lineloops(2.0,9.0,4.0,10.5);
+    //31-33
+    glBegin(GL_LINE_STRIP);
+        glVertex2f(2,10.5);
+        glVertex2f(2,12);
+        glVertex2f(3.5,12);
+    glEnd();
     // 32
     glBegin(GL_LINE_LOOP);
     glVertex2f(2.0, 7.0);
@@ -181,8 +187,8 @@ void display_ground()
     glBegin(GL_POLYGON);
 	glVertex2f(7.05, 4.05);
 	glVertex2f(10.5, 4.05);
-	glVertex2f(10.5, 5.6);
-	glVertex2f(7.05, 5.6);
+	glVertex2f(10.5, 5.5);
+	glVertex2f(7.05, 5.5);
 	glEnd();
 	// hole 4
 	glBegin(GL_TRIANGLE_STRIP);
@@ -215,8 +221,74 @@ void display_ground()
     glEnd();
     //24
     lineloops(19.0,0.0,23.0,5.5);
-
-
+    //20-21
+    glBegin(GL_LINE_STRIP);
+        glVertex2f(10.5, 2);
+        glVertex2f(12, 2);
+        glVertex2f(12, 3.5);
+    glEnd();
+    //21
+    lineloops(11.5,3.5,14.5,6.6);
+    //22
+    lineloops(14.5, 3.5, 17.5, 6.6);
+    //22-23
+    glBegin(GL_LINES);
+        glVertex2f(16.5, 3.5);
+        glVertex2f(16.5, 3.0);
+        glVertex2f(16.5, 3.0);
+        glVertex2f(19,3);
+        glVertex2f(17.5, 4.9);
+        glVertex2f(19,4.9);
+    glEnd();
+    //24
+    lineloops(19, 0,23,5.5);
+    //24-25
+    glBegin(GL_LINES);
+        glVertex2f(22,5.5);
+        glVertex2f(22,7.5);
+    glEnd();
+    //25
+    lineloops(20,7.5,23,12.8);
+    //48
+    lineloops(20,12.8,23,14.5);
+    //44
+    glBegin(GL_LINE_LOOP);
+        glVertex2f(20,14.5);
+        glVertex2f(23, 14.5);
+        glVertex2f(20,17.5);
+        glVertex2f(18.5,16);
+    glEnd();
+    //47, 45,46,43,44,42,41
+    glBegin(GL_LINE_STRIP);
+        glVertex2f(23,12.8);
+        glVertex2f(24.5,12.8);
+        glVertex2f(21.5,20);
+        glVertex2f(21.9,20.4);
+        glVertex2f(26.5,20.4);
+        glVertex2f(26.5,23);
+        glVertex2f(24.3,23);
+        glVertex2f(23,24.3);
+        glVertex2f(23,26.5);
+        glVertex2f(20.4,26.5);
+        glVertex2f(20.4,21.9);
+        glVertex2f(20,21.5);
+        glVertex2f(12.8,24.5);
+        glVertex2f(12.8,23);
+    glEnd();
+    //39
+    lineloops(12.8, 20, 13.5, 21);
+    //39-40
+    glBegin(GL_LINES);
+        glVertex2f(13.5, 20);
+        glVertex2f(14.5, 20);
+    glEnd();
+    //40
+    glBegin(GL_LINE_LOOP);
+        glVertex2f(14.5, 20);
+        glVertex2f(14.5, 23);
+        glVertex2f(17.5, 20);
+        glVertex2f(16, 18.5);
+    glEnd();
 
 
 
