@@ -1,11 +1,16 @@
 #include <iostream>
 #include <GL/glut.h>
-int df, flag=0;
+int df, a;
+int floor=0;
 
 using namespace std;
 
+void display_src();
 void display_dest();
 void display_ground();
+void display_floor();
+void display_otherfloors();
+void lineloops(float w, float x, float y, float z);
 
 void drawBitmapText(char *string, float x, float y)
 {
@@ -16,12 +21,46 @@ void drawBitmapText(char *string, float x, float y)
 
 }
 
+//Find actual co ordinates!
 void mouse(int button, int state, int x, int y)
 {
-    if (button == GLUT_LEFT_BUTTON)
-        display_dest();
-    else if (button == GLUT_RIGHT_BUTTON)  // Just for now :P
+    if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+    {
+       /* if (x>= && x<= && y<= && y>=)
+        {
+
+        } */
+    }
+}
+
+void keyboard(unsigned char key,int x,int y)
+{
+
+    if (df==1 && key==32)
+    {
+        df=0;
         display_ground();
+    }
+    else
+        glutPostRedisplay();
+}
+
+void special(int key, int x, int y)
+{
+    if (key == GLUT_KEY_UP)
+    {
+        floor++;
+        display_otherfloors();
+    }
+    else if (key == GLUT_KEY_DOWN && floor==0)
+        display_ground();
+    else if (key == GLUT_KEY_DOWN)
+    {
+        floor--;
+        display_otherfloors();
+    }
+    else
+        glutPostRedisplay();
 
 }
 
@@ -35,9 +74,25 @@ void lineloops(float w, float x, float y, float z)
     glEnd();
 }
 
-void display_ground()
+void display_floor()
 {
     glClear(GL_COLOR_BUFFER_BIT);
+    drawBitmapText("FLOOR ", -10.5, 25.5);
+    if (floor == 0)
+        drawBitmapText("0", -6.5, 25.5);
+    else if (floor == 1)
+        drawBitmapText("1", -6.5, 25.5);
+    else if (floor == 2)
+        drawBitmapText("2", -6.5, 25.5);
+    else if (floor == 3)
+        drawBitmapText("3", -6.5, 25.5);
+    else if (floor == 4)
+        drawBitmapText("4", -6.5, 25.5);
+    else if (floor == 5)
+        drawBitmapText("5", -6.5, 25.5);
+    else
+        drawBitmapText("6", -6.5, 25.5);
+
 	glColor3f(0.9, 0.9, 0.9);
 	// hole 1
 	glBegin(GL_POLYGON);
@@ -48,14 +103,14 @@ void display_ground()
         glVertex2f(2.2, 5.3);
         glVertex2f(2.2, 3.3);
     glEnd();
-    glColor3f(1.0, 0.0, 1.0);
+    glColor3f(1.0, 0.49, 0.31);
 	// 1
     glBegin(GL_LINE_LOOP);
-    glVertex2f(0.0, 0.0);
-    glVertex2f(3.0, 0.0);
-    glVertex2f(3.0, 1.5);
-    glVertex2f(1.5, 3.0);
-    glVertex2f(0.0, 3.0);
+        glVertex2f(0.0, 0.0);
+        glVertex2f(3.0, 0.0);
+        glVertex2f(3.0, 1.5);
+        glVertex2f(1.5, 3.0);
+        glVertex2f(0.0, 3.0);
     glEnd();
     // 2
     lineloops(3.0,0.0,4.0,1.5);
@@ -135,12 +190,12 @@ void display_ground()
     glEnd();
     // 32
     glBegin(GL_LINE_LOOP);
-        glVertex2f(2.0, 7.0);
-        glVertex2f(3.5, 7.0);
-        glVertex2f(3.5, 9.0);
-        glVertex2f(3.0, 9.0);
-        glVertex2f(3.0, 8.0);
-        glVertex2f(2.0, 8.0);
+    glVertex2f(2.0, 7.0);
+    glVertex2f(3.5, 7.0);
+    glVertex2f(3.5, 9.0);
+    glVertex2f(3.0, 9.0);
+    glVertex2f(3.0, 8.0);
+    glVertex2f(2.0, 8.0);
     glEnd();
     // 33
     lineloops(3.5, 11.5, 6.5, 14.5);
@@ -169,7 +224,7 @@ void display_ground()
 
     // hole 2
     glColor3f(0.9, 0.9, 0.9);
-        glBegin(GL_POLYGON);
+	glBegin(GL_POLYGON);
         glVertex2f(4.0, 7.05);
         glVertex2f(5.5, 7.05);
         glVertex2f(5.5, 10.5);
@@ -177,17 +232,10 @@ void display_ground()
 	glEnd();
     // hole 3
     glBegin(GL_POLYGON);
-<<<<<<< HEAD
         glVertex2f(7.05, 4.05);
         glVertex2f(10.5, 4.05);
-        glVertex2f(10.5, 5.6);
-        glVertex2f(7.05, 5.6);
-=======
-	glVertex2f(7.05, 4.05);
-	glVertex2f(10.5, 4.05);
-	glVertex2f(10.5, 5.5);
-	glVertex2f(7.05, 5.5);
->>>>>>> 1e2b7ba0a516e04bca54653b1409427d8965e490
+        glVertex2f(10.5, 5.5);
+        glVertex2f(7.05, 5.5);
 	glEnd();
 	// hole 4
 	glBegin(GL_TRIANGLE_STRIP);
@@ -202,12 +250,10 @@ void display_ground()
         glVertex2f(13.5, 19.0);
         glVertex2f(19.0, 13.5);
 	glEnd();
-	glColor3f(1.0, 0.0, 1.0);
+	glColor3f(1.0, 0.49, 0.31);
 	// 26
 	lineloops(17.5, 7.4, 19.0, 9.4);
 	//21
-	//21
-	glColor3f(1.0, 0.0, 1.0);
 	lineloops(11.5,3.5,14.5, 6.6);
 	//22
 	lineloops(14.5,3.5,17.5,6.6);
@@ -250,6 +296,12 @@ void display_ground()
     glEnd();
     //25
     lineloops(20,7.5,23,12.8);
+
+}
+
+void display_ground()
+{
+    display_floor();
     //48
     lineloops(20,12.8,23,14.5);
     //44
@@ -259,7 +311,7 @@ void display_ground()
         glVertex2f(20,17.5);
         glVertex2f(18.5,16);
     glEnd();
-    //47, 45,46,43,44,42,41
+    //47,46,45,43,44,42,41
     glBegin(GL_LINE_STRIP);
         glVertex2f(23,12.8);
         glVertex2f(24.5,12.8);
@@ -290,10 +342,31 @@ void display_ground()
         glVertex2f(17.5, 20);
         glVertex2f(16, 18.5);
     glEnd();
-
 	glFlush();
+	glutSpecialFunc(special);
+	glutMouseFunc(mouse);
 }
 
+void display_otherfloors()
+{
+    display_floor();
+    glBegin(GL_LINE_LOOP);
+        glVertex2f(12.8, 20.0);
+        glVertex2f(14.5, 20.0);
+        glVertex2f(20.0, 14.5);
+        glVertex2f(20.0, 12.8);
+        glVertex2f(24.5, 12.8);
+        glVertex2f(21.5, 20.0);
+        glVertex2f(20.0, 21.5);
+        glVertex2f(12.8, 24.5);
+    glEnd();
+    glFlush();
+  	glutSpecialFunc(special);
+    glutMouseFunc(mouse);
+}
+
+/*
+Back up input method. DON'T REMOVE!
 void rooms()
 {
     drawBitmapText("Bank", 0.0, 21.5);
@@ -307,26 +380,26 @@ void rooms()
 	drawBitmapText("Ofiice", 0.0, 9.5);
 	drawBitmapText("Seminar Hall 1", 0.0, 8.0);
 	drawBitmapText("Seminar hall 2", 0.0, 6.5);
-	drawBitmapText("Staff Room 001", 0.0, 5.0);
-	drawBitmapText("Staff Room 002", 0.0, 3.5);
-	drawBitmapText("Staff Room 003", 0.0, 2.0);
-	drawBitmapText("Staff Room 004", 0.0, 0.5);
-	drawBitmapText("Staff Room 005", 0.0, -1.0);
-	drawBitmapText("Staff Room 006", 16.0, 21.5);
-	drawBitmapText("Staff Room 007", 16.0, 20.0);
-	drawBitmapText("Staff Room 008", 16.0, 18.5);
-	drawBitmapText("Staff Room 009", 16.0, 17.0);
-	drawBitmapText("Staff Room 010", 16.0, 15.5);
-	drawBitmapText("Staff Room 011", 16.0, 14.0);
-	drawBitmapText("Staff Room 012", 16.0, 12.5);
-	drawBitmapText("Staff Room 013", 16.0, 11.0);
-	drawBitmapText("Staff Room 014", 16.0, 9.5);
-	drawBitmapText("Staff Room 015", 16.0, 8.0);
-	drawBitmapText("Staff Room 016", 16.0, 6.5);
-	drawBitmapText("Staff Room 017", 16.0, 5.0);
-	drawBitmapText("Staff Room 018", 16.0, 3.5);
-	drawBitmapText("Washroom - Boys", 16.0, 2.0);
-	drawBitmapText("Washroom - Girls", 16.0, 0.5);
+	drawBitmapText("Washroom - Boys", 0.0, 5.0);
+	drawBitmapText("Washroom - Girls", 0.0, 3.5);
+	drawBitmapText("Staff Room 001", 0.0, 2.0);
+	drawBitmapText("Staff Room 002", 0.0, 0.5);
+	drawBitmapText("Staff Room 003", 0.0, -1.0);
+	drawBitmapText("Staff Room 004", 16.0, 21.5);
+	drawBitmapText("Staff Room 005", 16.0, 20.0);
+	drawBitmapText("Staff Room 006", 16.0, 18.5);
+	drawBitmapText("Staff Room 007", 16.0, 17.0);
+	drawBitmapText("Staff Room 008", 16.0, 15.5);
+	drawBitmapText("Staff Room 009", 16.0, 14.0);
+	drawBitmapText("Staff Room 010", 16.0, 12.5);
+	drawBitmapText("Staff Room 011", 16.0, 11.0);
+	drawBitmapText("Staff Room 012", 16.0, 9.5);
+	drawBitmapText("Staff Room 013", 16.0, 8.0);
+	drawBitmapText("Staff Room 014", 16.0, 6.5);
+	drawBitmapText("Staff Room 015", 16.0, 5.0);
+	drawBitmapText("Staff Room 016", 16.0, 3.5);
+	drawBitmapText("Staff Room 017", 16.0, 2.0);
+	drawBitmapText("Staff Room 018", 16.0, 0.5);
 
 }
 
@@ -338,6 +411,7 @@ void display_dest()
 	rooms();
 	glutSwapBuffers();
 	glutMouseFunc(mouse);
+	//glFlush;
 }
 
 void display_src()
@@ -348,19 +422,8 @@ void display_src()
 	rooms();
 	glutSwapBuffers();
 	glutMouseFunc(mouse);
-}
-
-void keyboard(unsigned char key,int x,int y)
-{
-
-    if(df==1 && key==32)
-    {
-        df=0;
-        display_src();
-    }
-    else
-        glutPostRedisplay ();
-}
+	//glFlush;
+}*/
 
 void display()
 {
@@ -387,22 +450,20 @@ void display()
 
 void myinit()
 {
-	glClearColor(1.0, 1.0, 1.0, 1.0);
-    gluOrtho2D(-3.0, 30.0, -3.0, 30.0);
+	glClearColor(1.0, 0.98, 0.94, 1.0);
+    gluOrtho2D(-13.0, 43.0, -3.0, 28.0);
 }
 
 int main(int argc, char *argv[])
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB);
-
-	glutInitWindowSize(720, 720);
+	glutInitWindowSize(1366, 768);
 	glutInitWindowPosition(350.0, 0.0);
 	glutCreateWindow("College Guide");
-
+    glLineWidth(2.3);
 	glutDisplayFunc(display);
 	glutKeyboardFunc(keyboard);
-
 	myinit();
 	glutMainLoop();
 	return 0;
