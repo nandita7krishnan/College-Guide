@@ -2,6 +2,7 @@
 #include <GL/glut.h>
 int df, a;
 int floor=0;
+int mx, my;
 
 using namespace std;
 
@@ -10,11 +11,13 @@ void display_dest();
 void display_ground();
 void display_floor();
 void display_otherfloors();
+void display_info();
 void lineloops(float w, float x, float y, float z);
 
 void drawBitmapText(char *string, float x, float y)
 {
     char *c;
+    glColor3f(0.0, 0.0, 0.0);
     glRasterPos2f(x, y);
     for(c=string; *c!='\0'; c++)
         glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *c);
@@ -25,6 +28,11 @@ void mouse(int button, int state, int x, int y)
 {
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
     {
+        /*cout<<"points "<<x<<"   "<<y<<endl;
+        mx= x/55.5;
+        my= -y/;
+        cout<<"p  "<<mx<<"   "<<my<<endl;
+        */
         if (x>=300 && x<=370 && y>=600 && y<=670) ; //1
         else if (x>=370 && x<=390 && y>=640 && y<=670) ; //2
         else if (x>=390 && x<=420 && y>=640 && y<=670) ; //3
@@ -72,11 +80,13 @@ void mouse(int button, int state, int x, int y)
 void keyboard(unsigned char key,int x,int y)
 {
 
-    if (df==1 && key==32)
+    if ((df==1 && key==32) || key==105)
     {
         df=0;
-        display_ground();
+        display_info();
     }
+    else if (key == 113)
+        display_ground();
     else
         glutPostRedisplay();
 }
@@ -93,7 +103,10 @@ void special(int key, int x, int y)
     else if (key == GLUT_KEY_DOWN)
     {
         floor--;
-        display_otherfloors();
+        if (floor == 0)
+            display_ground();
+        else
+            display_otherfloors();
     }
     else
         glutPostRedisplay();
@@ -461,15 +474,33 @@ void display_src()
 	//glFlush;
 }*/
 
+void display_info()
+{
+    glClear(GL_COLOR_BUFFER_BIT);
+    glColor3f(0.5,1.0,0.5);
+    glBegin(GL_POLYGON);
+        glVertex2f(-13.0,21.0);
+        glVertex2f(-13.0,26.0);
+        glVertex2f(43.0,26.0);
+        glVertex2f(43.0,21.0);
+    glEnd();
+    drawBitmapText("INFORMATION", 8.0,23.0);
+    drawBitmapText("Choose the location that you are currently in. Then choose the location that you want to go to.", -7.0, 18.0);
+    drawBitmapText("Arrow keys can be used to navigate from one floor to another.", -7.0, 16.0);
+    drawBitmapText("q: quit from this page", -7.0, -2.0);
+    drawBitmapText("i: open this page again", 23.0, -2.0);
+    glFlush();
+}
+
 void display()
 {
     glClear(GL_COLOR_BUFFER_BIT);
     glColor3f(0.5,1.0,0.5);
     glBegin(GL_POLYGON);
-    glVertex2f(-3.0,15.0);
-    glVertex2f(-3.0,20.0);
-    glVertex2f(30.0,20.0);
-    glVertex2f(30.0,15.0);
+    glVertex2f(-13.0,15.0);
+    glVertex2f(-13.0,20.0);
+    glVertex2f(43.0,20.0);
+    glVertex2f(43.0,15.0);
     glEnd();
 	glColor3f(0.0,0.5,0.0);
 	drawBitmapText("COLLEGE GUIDE", 8.0,17.0);
@@ -487,7 +518,7 @@ void display()
 void myinit()
 {
 	glClearColor(1.0, 0.98, 0.94, 1.0);
-    gluOrtho2D(-13.0, 43.0, -3.0, 28.0);
+    glOrtho(-13.0, 43.0, -3.0, 28.0, -1, 1);
 }
 
 int main(int argc, char *argv[])
