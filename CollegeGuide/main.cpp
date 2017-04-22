@@ -2,7 +2,7 @@
 #include <GL/glut.h>
 int df, a;
 int floor=0;
-int mx, my;
+int mx, my, res_x, res_y;
 
 using namespace std;
 
@@ -24,15 +24,25 @@ void drawBitmapText(char *string, float x, float y)
 
 }
 
+void smallertext(char *string, float x, float y)
+{
+    char *c;
+    glColor3f(0.0, 0.0, 0.0);
+    glRasterPos2f(x, y);
+    for(c=string; *c!='\0'; c++)
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_10, *c);
+
+}
+
 void mouse(int button, int state, int x, int y)
 {
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
     {
-        /*cout<<"points "<<x<<"   "<<y<<endl;
-        mx= x/55.5;
-        my= -y/;
+        cout<<"points "<<x<<"   "<<y<<endl;
+        mx = ((x/(float)res_x)*56)-13;
+        my = 28-((y/(float)res_y)*31);
         cout<<"p  "<<mx<<"   "<<my<<endl;
-        */
+
         if (x>=300 && x<=370 && y>=600 && y<=670) ; //1
         else if (x>=370 && x<=390 && y>=640 && y<=670) ; //2
         else if (x>=390 && x<=420 && y>=640 && y<=670) ; //3
@@ -115,6 +125,7 @@ void special(int key, int x, int y)
 
 void lineloops(float w, float x, float y, float z)
 {
+    glColor3f(1.0, 0.49, 0.31);
     glBegin(GL_LINE_LOOP);
         glVertex2f(w, x);
         glVertex2f(y, x);
@@ -152,8 +163,8 @@ void display_floor()
         glVertex2f(2.2, 5.3);
         glVertex2f(2.2, 3.3);
     glEnd();
-    glColor3f(1.0, 0.49, 0.31);
 	// 1
+	glColor3f(1.0, 0.49, 0.31);
     glBegin(GL_LINE_LOOP);
         glVertex2f(0.0, 0.0);
         glVertex2f(3.0, 0.0);
@@ -163,47 +174,65 @@ void display_floor()
     glEnd();
     // 2
     lineloops(3.0,0.0,4.0,1.5);
+    smallertext("S09", 3.1, 0.75);
     // 3
     lineloops(4.0,0.0,5.0,1.5);
+    smallertext("S08", 4.1, 0.75);
     // 4
     lineloops(5.0,0.0,6.0,1.5);
+    smallertext("S07", 5.1, 0.75);
     // 5
     lineloops(6.0,0.0,7.0,1.5);
     // line connecting 5 and 19
+    glColor3f(1.0, 0.49, 0.31);
     glBegin(GL_LINES);
         glVertex2f(7.0, 1.5);
         glVertex2f(7.0, 2.0);
     glEnd();
     // 6
     lineloops(0.0,3.0,1.5,4.0);
+    smallertext("S10", 0.1, 3.5);
     // 7
     lineloops(0.0,4.0,1.5,5.0);
+    smallertext("S11", 0.1, 4.5);
     // 8
     lineloops(0.0,5.0,1.5,6.0);
+    smallertext("S12", 0.1, 5.5);
     // 9
     lineloops(0.0,6.0,1.5,7.0);
+    smallertext("HOD", 0.1, 6.5);
     // line connecting 9 and 32
+    glColor3f(1.0, 0.49, 0.31);
     glBegin(GL_LINES);
         glVertex2f(1.5, 7.0);
         glVertex2f(2.0, 7.0);
     glEnd();
     // 11
     lineloops(5.8,4.0,7.0,4.8);
+    smallertext("S06", 5.9, 4.4);
     // 12
     lineloops(5.8,4.8,7.0,5.6);
+    smallertext("S05", 5.9, 5.2);
     // 13
     lineloops(4.0,5.8,4.8,7.0);
+    smallertext("S13", 4.1, 6.4);
     // 14
     lineloops(4.8,5.8,5.6,7.0);
+    smallertext("S14", 4.9, 6.4);
     // 15
     lineloops(7.0,5.6,7.87,6.6);
+    smallertext("S04", 7.1, 6.1);
 	// 16
 	lineloops(7.87,5.6,8.75,6.6);
+	smallertext("S03", 7.9, 6.1);
     // 17
     lineloops(8.75,5.6,9.62,6.6);
+    smallertext("S02", 8.8, 6.1);
     // 18
     lineloops(9.62,5.6,10.5,6.6);
+    smallertext("S01", 9.7, 6.1);
     // 19
+    glColor3f(1.0, 0.49, 0.31);
     glBegin(GL_LINE_LOOP);
         glVertex2f(7.0, 2.0);
         glVertex2f(8.0, 2.0);
@@ -212,7 +241,10 @@ void display_floor()
         glVertex2f(8.75, 4.0);
         glVertex2f(7.0, 4.0);
     glEnd();
+    smallertext("WR-", 7.1, 3.5);
+    smallertext("Faculty", 7.1, 3.1);
     // 20
+    glColor3f(1.0, 0.49, 0.31);
     glBegin(GL_LINE_LOOP);
         glVertex2f(8.75, 3.0);
         glVertex2f(9.0, 3.0);
@@ -221,23 +253,33 @@ void display_floor()
         glVertex2f(10.5, 4.0);
         glVertex2f(8.75, 4.0);
     glEnd();
+    smallertext("WR-", 9.0, 3.5);
+    smallertext("Girls", 9.0, 3.1);
     // 27
     lineloops(5.6,7.0,6.6,7.87);
+    smallertext("S15", 5.7, 7.4);
     // 28
     lineloops(5.6,7.87,6.6,8.75);
+    smallertext("S16", 5.7, 8.3);
     // 29
     lineloops(5.6,8.75,6.6,9.62);
+    smallertext("S17", 5.7, 9.2);
     // 30
     lineloops(5.6,9.62,6.6,10.5);
+    smallertext("S18", 5.7, 10.1);
     // 31
     lineloops(2.0,9.0,4.0,10.5);
+    smallertext("WR-", 2.2, 10.0);
+    smallertext("Boys", 2.2, 9.6);
     //31-33
+    glColor3f(1.0, 0.49, 0.31);
     glBegin(GL_LINE_STRIP);
         glVertex2f(2,10.5);
         glVertex2f(2,12);
         glVertex2f(3.5,12);
     glEnd();
     // 32
+    glColor3f(1.0, 0.49, 0.31);
     glBegin(GL_LINE_LOOP);
     glVertex2f(2.0, 7.0);
     glVertex2f(3.5, 7.0);
@@ -248,9 +290,12 @@ void display_floor()
     glEnd();
     // 33
     lineloops(3.5, 11.5, 6.5, 14.5);
+    smallertext("CR - 03", 4.1, 13.0);
     // 34
     lineloops(3.5, 14.5, 6.5, 17.5);
+    smallertext("CR - 04", 4.1, 16.0);
     // 35
+    glColor3f(1.0, 0.49, 0.31);
     glBegin(GL_LINE_LOOP);
         glVertex2f(3.0, 16.3);
         glVertex2f(3.5, 16.3);
@@ -259,18 +304,23 @@ void display_floor()
         glVertex2f(4.9, 19.0);
         glVertex2f(3.0, 19.0);
     glEnd();
+    smallertext("Stairs", 3.2, 18.25);
     // 36
     lineloops(0.0, 19.0, 5.5, 23.0);
+    if (floor==0)
+        smallertext("Seminar Hall", 1.5, 21.0);
     // line between 36 and 37
+    glColor3f(1.0, 0.49, 0.31);
     glBegin(GL_LINES);
         glVertex2f(5.5, 22.0);
         glVertex2f(7.5, 22.0);
     glEnd();
     // 37
     lineloops(7.5, 20.0, 12.8, 23.0);
+    smallertext("Laborotory", 9.0, 21);
     // 38
     lineloops(7.4, 17.5, 9.4, 19.0);
-
+    smallertext("Lift", 7.7, 18.25);
     // hole 2
     glColor3f(0.9, 0.9, 0.9);
 	glBegin(GL_POLYGON);
@@ -299,14 +349,14 @@ void display_floor()
         glVertex2f(13.5, 19.0);
         glVertex2f(19.0, 13.5);
 	glEnd();
-	glColor3f(1.0, 0.49, 0.31);
-	// 26
-	lineloops(17.5, 7.4, 19.0, 9.4);
 	//21
 	lineloops(11.5,3.5,14.5, 6.6);
+	smallertext("CR - 02", 12.3, 5.0);
 	//22
 	lineloops(14.5,3.5,17.5,6.6);
+	smallertext("CR - 01", 15.0, 5.0);
 	//23
+	glColor3f(1.0, 0.49, 0.31);
 	glBegin(GL_LINES);
         glVertex2f(16.5, 3.5);
         glVertex2f(16.5, 3);
@@ -315,19 +365,37 @@ void display_floor()
         glVertex2f(17.5,4.9);
         glVertex2f(19,4.9);
     glEnd();
+    smallertext("Stairs", 17.6, 3.7);
     //24
     lineloops(19.0,0.0,23.0,5.5);
+    if (floor == 0)
+        smallertext("Seminar Hall", 20.0, 2.5);
+    else if (floor == 1)
+    {
+        glBegin(GL_LINES);
+            glVertex2f(19.0, 2.5);
+            glVertex2f(23.0, 2.5);
+        glEnd();
+        glBegin(GL_LINES);
+            glVertex2f(20.0, 2.5);
+            glVertex2f(20.0, 5.5);
+        glEnd();
+        smallertext("CR - 00A", 20.5, 4.0);
+        smallertext("CR - 00B", 20.0, 1.5);
+    }
+    else if (floor == 2 || floor == 3)
+        smallertext("Laborotory", 20.0, 2.5);
+    else if (floor == 4)
+        smallertext("Sports Room", 20.0, 2.5);
     //20-21
+    glColor3f(1.0, 0.49, 0.31);
     glBegin(GL_LINE_STRIP);
         glVertex2f(10.5, 2);
         glVertex2f(12, 2);
         glVertex2f(12, 3.5);
     glEnd();
-    //21
-    lineloops(11.5,3.5,14.5,6.6);
-    //22
-    lineloops(14.5, 3.5, 17.5, 6.6);
     //22-23
+    glColor3f(1.0, 0.49, 0.31);
     glBegin(GL_LINES);
         glVertex2f(16.5, 3.5);
         glVertex2f(16.5, 3.0);
@@ -336,16 +404,18 @@ void display_floor()
         glVertex2f(17.5, 4.9);
         glVertex2f(19,4.9);
     glEnd();
-    //24
-    lineloops(19, 0,23,5.5);
     //24-25
+    glColor3f(1.0, 0.49, 0.31);
     glBegin(GL_LINES);
         glVertex2f(22,5.5);
         glVertex2f(22,7.5);
     glEnd();
     //25
     lineloops(20,7.5,23,12.8);
-
+    smallertext("Laborotory", 20.5, 10.0);
+    // 26
+	lineloops(17.5, 7.4, 19.0, 9.4);
+	smallertext("Lift", 17.6, 8.5);
 }
 
 void display_ground()
@@ -354,13 +424,16 @@ void display_ground()
     //48
     lineloops(20,12.8,23,14.5);
     //44
+    glColor3f(1.0, 0.49, 0.31);
     glBegin(GL_LINE_LOOP);
         glVertex2f(20,14.5);
         glVertex2f(23, 14.5);
         glVertex2f(20,17.5);
         glVertex2f(18.5,16);
     glEnd();
+    smallertext("Office", 19.5, 16.0);
     //47,46,45,43,44,42,41
+    glColor3f(1.0, 0.49, 0.31);
     glBegin(GL_LINE_STRIP);
         glVertex2f(23,12.8);
         glVertex2f(24.5,12.8);
@@ -379,18 +452,22 @@ void display_ground()
     glEnd();
     //39
     lineloops(12.8, 20, 13.5, 21);
+    smallertext("atm", 12.8, 20.4);
     //39-40
+    glColor3f(1.0, 0.49, 0.31);
     glBegin(GL_LINES);
         glVertex2f(13.5, 20);
         glVertex2f(14.5, 20);
     glEnd();
     //40
+    glColor3f(1.0, 0.49, 0.31);
     glBegin(GL_LINE_LOOP);
         glVertex2f(14.5, 20);
         glVertex2f(14.5, 23);
         glVertex2f(17.5, 20);
         glVertex2f(16, 18.5);
     glEnd();
+    smallertext("Bank", 15.5, 20.0);
 	glFlush();
 	glutSpecialFunc(special);
 	glutMouseFunc(mouse);
@@ -399,6 +476,7 @@ void display_ground()
 void display_otherfloors()
 {
     display_floor();
+    glColor3f(1.0, 0.49, 0.31);
     glBegin(GL_LINE_LOOP);
         glVertex2f(12.8, 20.0);
         glVertex2f(14.5, 20.0);
@@ -409,6 +487,12 @@ void display_otherfloors()
         glVertex2f(20.0, 21.5);
         glVertex2f(12.8, 24.5);
     glEnd();
+    if (floor == 1 || floor == 2)
+        smallertext("Library", 18.0, 18.0);
+    else if (floor == 3)
+        smallertext("APU Library", 18.0, 18.0);
+    else if (floor == 4 || floor == 5)
+        smallertext("Canteen", 18.0, 18.0);
     glFlush();
   	glutSpecialFunc(special);
     glutMouseFunc(mouse);
@@ -518,7 +602,9 @@ void display()
 void myinit()
 {
 	glClearColor(1.0, 0.98, 0.94, 1.0);
-    glOrtho(-13.0, 43.0, -3.0, 28.0, -1, 1);
+	glMatrixMode(GL_PROJECTION);
+    //glLoadIdentity();
+    gluOrtho2D(-13.0, 43.0, -3.0, 28.0);
 }
 
 int main(int argc, char *argv[])
@@ -531,6 +617,8 @@ int main(int argc, char *argv[])
     glLineWidth(2.3);
 	glutDisplayFunc(display);
 	glutKeyboardFunc(keyboard);
+	res_x = glutGet(GLUT_SCREEN_WIDTH);
+	res_y = glutGet(GLUT_SCREEN_HEIGHT);
 	myinit();
 	glutMainLoop();
 	return 0;
