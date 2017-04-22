@@ -1,18 +1,46 @@
 #include <iostream>
 #include <GL/glut.h>
-int df, a;
-int floor=0;
-int mx, my, res_x, res_y;
+
+int df;
+int floor=0, src=1;
+double ox, oy, oz;
+float src_x, src_y, dstn_x, dstn_y;
 
 using namespace std;
 
-void display_src();
-void display_dest();
+void display();
 void display_ground();
 void display_floor();
 void display_otherfloors();
 void display_info();
 void lineloops(float w, float x, float y, float z);
+
+void drawSource(float x, float y)
+{
+    glBegin(GL_LINES);
+        glVertex2f(x, y);
+        glVertex2f(x, y+0.75);
+    glEnd();
+    glBegin(GL_POLYGON);
+        glVertex2f(x-0.2, y+0.75);
+        glVertex2f(x-0.2, y+0.95);
+        glVertex2f(x+0.2, y+0.95);
+        glVertex2f(x+0.2, y+0.75);
+    glEnd();
+    glFlush();
+}
+
+void drawDestination(float x, float y)
+{
+    glBegin(GL_POLYGON);
+        glVertex2f(x-0.2, y+0.75);
+        glVertex2f(x-0.2, y+0.95);
+        glVertex2f(x+0.2, y+0.95);
+        glVertex2f(x+0.2, y+0.75);
+        glVertex2f(x, y);
+    glEnd();
+    glFlush();
+}
 
 void drawBitmapText(char *string, float x, float y)
 {
@@ -36,54 +64,72 @@ void smallertext(char *string, float x, float y)
 
 void mouse(int button, int state, int x, int y)
 {
+    GLint viewport[4];
+    GLdouble modelview[16], projection[16];
+    GLfloat wx=x, wy, wz;
+    glGetIntegerv(GL_VIEWPORT, viewport);
+    y=viewport[3]-y;
+    wy=y;
+    glGetDoublev(GL_MODELVIEW_MATRIX, modelview);
+    glGetDoublev(GL_PROJECTION_MATRIX, projection);
+    glReadPixels(x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &wz);
+    gluUnProject(wx, wy, wz, modelview, projection, viewport, &ox, &oy, &oz);
+    src=0;
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
     {
-        cout<<"points "<<x<<"   "<<y<<endl;
-        mx = ((x/(float)res_x)*56)-13;
-        my = 28-((y/(float)res_y)*31);
-        cout<<"p  "<<mx<<"   "<<my<<endl;
-
-        if (x>=300 && x<=370 && y>=600 && y<=670) ; //1
-        else if (x>=370 && x<=390 && y>=640 && y<=670) ; //2
-        else if (x>=390 && x<=420 && y>=640 && y<=670) ; //3
-        else if (x>=420 && x<=440 && y>=640 && y<=670) ; //4
-        else if (x>=440 && x<=460 && y>=640 && y<=670) ; //5
-        else if (x>=300 && x<=330 && y>=575 && y<=650) ; //6
-        else if (x>=300 && x<=330 && y>=550 && y<=575) ; //7
-        else if (x>=300 && x<=330 && y>=525 && y<=550) ; //8
-        else if (x>=300 && x<=330 && y>=500 && y<=525) ; //9
-        else if (x>=440 && x<=460 && y>=560 && y<=575) ; //11
-        else if (x>=440 && x<=460 && y>=540 && y<=560) ; //12
-        else if (x>=395 && x<=410 && y>=500 && y<=525) ; //13
-        else if (x>=410 && x<=430 && y>=500 && y<=525) ; //14
-        else if (x>=465 && x<=485 && y>=520 && y<=540) ; //15
-        else if (x>=485 && x<=505 && y>=520 && y<=540) ; //16
-        else if (x>=505 && x<=525 && y>=520 && y<=540) ; //17
-        else if (x>=525 && x<=545 && y>=520 && y<=540) ; //18
-        else if (x>=460 && x<=505 && y>=585 && y<=620) ; //19
-        else if (x>=505 && x<=540 && y>=585 && y<=620) ; //20
-        else if (x>=565 && x<=635 && y>=520 && y<=590) ; //21
-        else if (x>=635 && x<=705 && y>=520 && y<=590) ; //22
-        else if (x>=705 && x<=740 && y>=555 && y<=605) ; //23
-        else if (x>=740 && x<=835 && y>=540 && y<=665) ; //24
-        else if (x>=760 && x<=835 && y>=365 && y<=490) ; //25
-        else if (x>=700 && x<=740 && y>=445 && y<=495) ; //26
-        else if (x>=430 && x<=450 && y>=485 && y<=505) ; //27
-        else if (x>=430 && x<=450 && y>=460 && y<=485) ; //28
-        else if (x>=430 && x<=450 && y>=440 && y<=485) ; //29
-        else if (x>=430 && x<=450 && y>=420 && y<=440) ; //30
-        else if (x>=345 && x<=395 && y>=420 && y<=460) ; //31
-        else if (x>=345 && x<=385 && y>=460 && y<=500) ; //32
-        else if (x>=380 && x<=450 && y>=320 && y<=395) ; //33
-        else if (x>=380 && x<=450 && y>=255 && y<=320) ; //34
-        else if (x>=365 && x<=410 && y>=220 && y<=250) ; //35
-        else if (x>=300 && x<=425 && y>=120 && y<=210) ; //36
-        else if (x>=470 && x<=595 && y>=125 && y<=190) ; //37
-        else if (x>=475 && x<=515 && y>=220 && y<=250) ; //38
-        else if (x>=595 && x<=610 && y>=170 && y<=190 && floor==0) ; //atm
-        else if (x>=635 && x<=705 && y>=140 && y<=230 && floor==0) ; //bank
-        else if (x>=730 && x<=820 && y>=260 && y<=320 && floor==0) ; //office
-        else if ((x>=635 && x<=705 && y>=140 && y<=230) || (x>=730 && x<=820 && y>=260 && y<=320)) ; //library or canteen
+        //cout<<"points "<<x<<"   "<<y<<endl;
+        //cout<<"other points "<<ox<<"   "<<oy<<endl;
+        if (ox>=0.0 && ox<=3.0 && oy>=0.0 && oy<=3.0) //1
+        {
+            if (src==1){
+                src_x=2.5;
+                src_y=2.5;
+            }
+            else{
+                dstn_x=2.5;
+                dstn_y=2.5;
+            }
+        }
+        else if (ox>=3.0 && ox<=4.0 && oy>=0.0 && oy<=1.5) ; //2
+        else if (ox>=4.0 && ox<=5.0 && oy>=0.0 && oy<=1.5) ; //3
+        else if (ox>=5.0 && ox<=6.0 && oy>=0.0 && oy<=1.5) ; //4
+        else if (ox>=6.0 && ox<=7.0 && oy>=0.0 && oy<=1.5) ; //5
+        else if (ox>=0.0 && ox<=1.5 && oy>=3.0 && oy<=4.0) ; //6
+        else if (ox>=0.0 && ox<=1.5 && oy>=4.0 && oy<=5.0) ; //7
+        else if (ox>=0.0 && ox<=1.5 && oy>=5.0 && oy<=6.0) ; //8
+        else if (ox>=0.0 && ox<=1.5 && oy>=6.0 && oy<=7.0) ; //9
+        else if (ox>=5.8 && ox<=7.0 && oy>=4.0 && oy<=4.8) ; //11
+        else if (ox>=5.8 && ox<=7.0 && oy>=4.8 && oy<=5.6) ; //12
+        else if (ox>=4.0 && ox<=4.8 && oy>=5.8 && oy<=7.0) ; //13
+        else if (ox>=4.8 && ox<=5.6 && oy>=5.8 && oy<=7.0) ; //14
+        else if (ox>=7.0 && ox<=7.9 && oy>=5.6 && oy<=6.6) ; //15
+        else if (ox>=7.9 && ox<=8.75 && oy>=5.6 && oy<=6.6) ; //16
+        else if (ox>=8.75 && ox<=9.6 && oy>=5.6 && oy<=6.6) ; //17
+        else if (ox>=9.6 && ox<=10.5 && oy>=5.6 && oy<=6.6) ; //18
+        else if (ox>=7.0 && ox<=8.75 && oy>=1.5 && oy<=4.0) ; //19
+        else if (ox>=8.75 && ox<=10.5 && oy>=1.5 && oy<=4.0) ; //20
+        else if (ox>=11.5 && ox<=14.5 && oy>=3.5 && oy<=6.6) ; //21
+        else if (ox>=14.5 && ox<=17.5 && oy>=3.5 && oy<=6.6) ; //22
+        else if (ox>=17.5 && ox<=19.0 && oy>=3.0 && oy<=4.9) ; //23
+        else if (ox>=19.0 && ox<=23.0 && oy>=0.0 && oy<=5.5) ; //24
+        else if (ox>=20.0 && ox<=23.0 && oy>=7.5 && oy<=12.8) ; //25
+        else if (ox>=17.5 && ox<=19.0 && oy>=7.0 && oy<=9.0) ; //26
+        else if (ox>=5.6 && ox<=6.6 && oy>=7.0 && oy<=7.87) ; //27
+        else if (ox>=5.6 && ox<=6.6 && oy>=7.87 && oy<=8.75) ; //28
+        else if (ox>=5.6 && ox<=6.6 && oy>=8.75 && oy<=9.62) ; //29
+        else if (ox>=5.6 && ox<=6.6 && oy>=9.62 && oy<=10.5) ; //30
+        else if (ox>=2.0 && ox<=4.0 && oy>=9.0 && oy<=10.5) ; //31
+        else if (ox>=2.0 && ox<=4.0 && oy>=7.0 && oy<=8.0) ; //32
+        else if (ox>=3.5 && ox<=6.5 && oy>=11.5 && oy<=14.5) ; //33
+        else if (ox>=3.5 && ox<=6.5 && oy>=14.5 && oy<=17.5) ; //34
+        else if (ox>=3.0 && ox<=4.9 && oy>=17.5 && oy<=19.0) ; //35
+        else if (ox>=0.0 && ox<=5.5 && oy>=19.0 && oy<=23.0) ; //36
+        else if (ox>=7.5 && ox<=12.8 && oy>=20.0 && oy<=23.0) ; //37
+        else if (ox>=7.0 && ox<=9.0 && oy>=17.5 && oy<=19.0) ; //38
+        else if (ox>=13.5 && ox<=14.5 && oy>=20.0 && oy<=21.0 && floor==0) ; //atm
+        else if (ox>=14.5 && ox<=17.5 && oy>=19.0 && oy<=22.0 && floor==0) ; //bank
+        else if (ox>=18.5 && ox<=23.0 && oy>=15.0 && oy<=17.0 && floor==0) ; //office
+        else if (ox>=14.5 && ox<=23.0 && oy>=14.5 && oy<=23.0 && floor!=0) ; //library or canteen
     }
 }
 
@@ -498,66 +544,6 @@ void display_otherfloors()
     glutMouseFunc(mouse);
 }
 
-/*
-Back up input method. DON'T REMOVE!
-void rooms()
-{
-    drawBitmapText("Bank", 0.0, 21.5);
-	drawBitmapText("CADD Laborotory", 0.0, 20.0);
-	drawBitmapText("Chemistry Laborotory", 0.0, 18.5);
-	drawBitmapText("Class Room 001", 0.0, 17.0);
-	drawBitmapText("Class Room 002", 0.0, 15.5);
-	drawBitmapText("Class Room 003", 0.0, 14.0);
-	drawBitmapText("Class Room 004", 0.0, 12.5);
-	drawBitmapText("HOD's Cabin", 0.0, 11.0);
-	drawBitmapText("Ofiice", 0.0, 9.5);
-	drawBitmapText("Seminar Hall 1", 0.0, 8.0);
-	drawBitmapText("Seminar hall 2", 0.0, 6.5);
-	drawBitmapText("Washroom - Boys", 0.0, 5.0);
-	drawBitmapText("Washroom - Girls", 0.0, 3.5);
-	drawBitmapText("Staff Room 001", 0.0, 2.0);
-	drawBitmapText("Staff Room 002", 0.0, 0.5);
-	drawBitmapText("Staff Room 003", 0.0, -1.0);
-	drawBitmapText("Staff Room 004", 16.0, 21.5);
-	drawBitmapText("Staff Room 005", 16.0, 20.0);
-	drawBitmapText("Staff Room 006", 16.0, 18.5);
-	drawBitmapText("Staff Room 007", 16.0, 17.0);
-	drawBitmapText("Staff Room 008", 16.0, 15.5);
-	drawBitmapText("Staff Room 009", 16.0, 14.0);
-	drawBitmapText("Staff Room 010", 16.0, 12.5);
-	drawBitmapText("Staff Room 011", 16.0, 11.0);
-	drawBitmapText("Staff Room 012", 16.0, 9.5);
-	drawBitmapText("Staff Room 013", 16.0, 8.0);
-	drawBitmapText("Staff Room 014", 16.0, 6.5);
-	drawBitmapText("Staff Room 015", 16.0, 5.0);
-	drawBitmapText("Staff Room 016", 16.0, 3.5);
-	drawBitmapText("Staff Room 017", 16.0, 2.0);
-	drawBitmapText("Staff Room 018", 16.0, 0.5);
-
-}
-
-void display_dest()
-{
-    glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(0.0,0.5,0.0);
-    drawBitmapText("Choose where you want to go...", 7.0,26.0);
-	rooms();
-	glutSwapBuffers();
-	glutMouseFunc(mouse);
-	//glFlush;
-}
-
-void display_src()
-{
-    glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(0.0,0.5,0.0);
-    drawBitmapText("Choose your location...", 8.0,26.0);
-	rooms();
-	glutSwapBuffers();
-	glutMouseFunc(mouse);
-	//glFlush;
-}*/
-
 void display_info()
 {
     glClear(GL_COLOR_BUFFER_BIT);
@@ -603,8 +589,10 @@ void myinit()
 {
 	glClearColor(1.0, 0.98, 0.94, 1.0);
 	glMatrixMode(GL_PROJECTION);
-    //glLoadIdentity();
-    gluOrtho2D(-13.0, 43.0, -3.0, 28.0);
+    gluOrtho2D(-13.0, 42.0, -3.0, 28.0);
+
+    //glScalef(24.39, 24, 1.0);
+    //glViewport(-13.0, -3.0, 43.0, 28.0);
 }
 
 int main(int argc, char *argv[])
@@ -617,8 +605,6 @@ int main(int argc, char *argv[])
     glLineWidth(2.3);
 	glutDisplayFunc(display);
 	glutKeyboardFunc(keyboard);
-	res_x = glutGet(GLUT_SCREEN_WIDTH);
-	res_y = glutGet(GLUT_SCREEN_HEIGHT);
 	myinit();
 	glutMainLoop();
 	return 0;
