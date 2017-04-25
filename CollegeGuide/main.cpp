@@ -3,8 +3,10 @@
 
 int df;
 int floor=0, src=1;
-double ox, oy, oz;
+int src_marked=0, dstn_marked=0;
+int src_floor=999, dstn_floor=999;
 float src_x, src_y, dstn_x, dstn_y;
+double ox, oy, oz;
 
 using namespace std;
 
@@ -14,6 +16,7 @@ void display_floor();
 void display_otherfloors();
 void display_info();
 void lineloops(float w, float x, float y, float z);
+void mouse(int button, int state, int x, int y);
 
 void drawSource(float x, float y)
 {
@@ -28,6 +31,8 @@ void drawSource(float x, float y)
         glVertex2f(x+0.2, y+0.75);
     glEnd();
     glFlush();
+    src=0;
+    src_marked=1;
 }
 
 void drawDestination(float x, float y)
@@ -40,6 +45,8 @@ void drawDestination(float x, float y)
         glVertex2f(x, y);
     glEnd();
     glFlush();
+    src=999;
+    dstn_marked=1;
 }
 
 void drawBitmapText(char *string, float x, float y)
@@ -62,6 +69,22 @@ void smallertext(char *string, float x, float y)
 
 }
 
+void setValue(float x, float y)
+{
+    if (src==1) {
+        src_x=x;
+        src_y=y;
+        src_floor= floor;
+        drawSource(src_x, src_y);
+    }
+    else if (src==0) {
+        dstn_x=x;
+        dstn_y=y;
+        dstn_floor= floor;
+        drawDestination(dstn_x, dstn_y);
+    }
+}
+
 void mouse(int button, int state, int x, int y)
 {
     GLint viewport[4];
@@ -74,62 +97,92 @@ void mouse(int button, int state, int x, int y)
     glGetDoublev(GL_PROJECTION_MATRIX, projection);
     glReadPixels(x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &wz);
     gluUnProject(wx, wy, wz, modelview, projection, viewport, &ox, &oy, &oz);
-    src=0;
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
     {
         //cout<<"points "<<x<<"   "<<y<<endl;
         //cout<<"other points "<<ox<<"   "<<oy<<endl;
         if (ox>=0.0 && ox<=3.0 && oy>=0.0 && oy<=3.0) //1
-        {
-            if (src==1){
-                src_x=2.5;
-                src_y=2.5;
-            }
-            else{
-                dstn_x=2.5;
-                dstn_y=2.5;
-            }
-        }
-        else if (ox>=3.0 && ox<=4.0 && oy>=0.0 && oy<=1.5) ; //2
-        else if (ox>=4.0 && ox<=5.0 && oy>=0.0 && oy<=1.5) ; //3
-        else if (ox>=5.0 && ox<=6.0 && oy>=0.0 && oy<=1.5) ; //4
-        else if (ox>=6.0 && ox<=7.0 && oy>=0.0 && oy<=1.5) ; //5
-        else if (ox>=0.0 && ox<=1.5 && oy>=3.0 && oy<=4.0) ; //6
-        else if (ox>=0.0 && ox<=1.5 && oy>=4.0 && oy<=5.0) ; //7
-        else if (ox>=0.0 && ox<=1.5 && oy>=5.0 && oy<=6.0) ; //8
-        else if (ox>=0.0 && ox<=1.5 && oy>=6.0 && oy<=7.0) ; //9
-        else if (ox>=5.8 && ox<=7.0 && oy>=4.0 && oy<=4.8) ; //11
-        else if (ox>=5.8 && ox<=7.0 && oy>=4.8 && oy<=5.6) ; //12
-        else if (ox>=4.0 && ox<=4.8 && oy>=5.8 && oy<=7.0) ; //13
-        else if (ox>=4.8 && ox<=5.6 && oy>=5.8 && oy<=7.0) ; //14
-        else if (ox>=7.0 && ox<=7.9 && oy>=5.6 && oy<=6.6) ; //15
-        else if (ox>=7.9 && ox<=8.75 && oy>=5.6 && oy<=6.6) ; //16
-        else if (ox>=8.75 && ox<=9.6 && oy>=5.6 && oy<=6.6) ; //17
-        else if (ox>=9.6 && ox<=10.5 && oy>=5.6 && oy<=6.6) ; //18
-        else if (ox>=7.0 && ox<=8.75 && oy>=1.5 && oy<=4.0) ; //19
-        else if (ox>=8.75 && ox<=10.5 && oy>=1.5 && oy<=4.0) ; //20
-        else if (ox>=11.5 && ox<=14.5 && oy>=3.5 && oy<=6.6) ; //21
-        else if (ox>=14.5 && ox<=17.5 && oy>=3.5 && oy<=6.6) ; //22
-        else if (ox>=17.5 && ox<=19.0 && oy>=3.0 && oy<=4.9) ; //23
-        else if (ox>=19.0 && ox<=23.0 && oy>=0.0 && oy<=5.5) ; //24
-        else if (ox>=20.0 && ox<=23.0 && oy>=7.5 && oy<=12.8) ; //25
-        else if (ox>=17.5 && ox<=19.0 && oy>=7.0 && oy<=9.0) ; //26
-        else if (ox>=5.6 && ox<=6.6 && oy>=7.0 && oy<=7.87) ; //27
-        else if (ox>=5.6 && ox<=6.6 && oy>=7.87 && oy<=8.75) ; //28
-        else if (ox>=5.6 && ox<=6.6 && oy>=8.75 && oy<=9.62) ; //29
-        else if (ox>=5.6 && ox<=6.6 && oy>=9.62 && oy<=10.5) ; //30
-        else if (ox>=2.0 && ox<=4.0 && oy>=9.0 && oy<=10.5) ; //31
-        else if (ox>=2.0 && ox<=4.0 && oy>=7.0 && oy<=8.0) ; //32
-        else if (ox>=3.5 && ox<=6.5 && oy>=11.5 && oy<=14.5) ; //33
-        else if (ox>=3.5 && ox<=6.5 && oy>=14.5 && oy<=17.5) ; //34
-        else if (ox>=3.0 && ox<=4.9 && oy>=17.5 && oy<=19.0) ; //35
-        else if (ox>=0.0 && ox<=5.5 && oy>=19.0 && oy<=23.0) ; //36
-        else if (ox>=7.5 && ox<=12.8 && oy>=20.0 && oy<=23.0) ; //37
-        else if (ox>=7.0 && ox<=9.0 && oy>=17.5 && oy<=19.0) ; //38
-        else if (ox>=13.5 && ox<=14.5 && oy>=20.0 && oy<=21.0 && floor==0) ; //atm
-        else if (ox>=14.5 && ox<=17.5 && oy>=19.0 && oy<=22.0 && floor==0) ; //bank
-        else if (ox>=18.5 && ox<=23.0 && oy>=15.0 && oy<=17.0 && floor==0) ; //office
-        else if (ox>=14.5 && ox<=23.0 && oy>=14.5 && oy<=23.0 && floor!=0) ; //library or canteen
+            setValue(2.5, 2.5);
+        else if (ox>=3.0 && ox<=4.0 && oy>=0.0 && oy<=1.5)  //2
+            setValue(3.5, 1.6);
+        else if (ox>=4.0 && ox<=5.0 && oy>=0.0 && oy<=1.5)  //3
+            setValue(4.5, 1.6);
+        else if (ox>=5.0 && ox<=6.0 && oy>=0.0 && oy<=1.5)  //4
+            setValue(5.5, 1.6);
+        else if (ox>=6.0 && ox<=7.0 && oy>=0.0 && oy<=1.5)  //5
+            setValue(6.5, 1.6);
+        else if (ox>=0.0 && ox<=1.5 && oy>=3.0 && oy<=4.0)  //6
+            setValue(1.6, 3.5);
+        else if (ox>=0.0 && ox<=1.5 && oy>=4.0 && oy<=5.0)  //7
+            setValue(1.6, 4.5);
+        else if (ox>=0.0 && ox<=1.5 && oy>=5.0 && oy<=6.0)  //8
+            setValue(1.6, 5.5);
+        else if (ox>=0.0 && ox<=1.5 && oy>=6.0 && oy<=7.0)  //9
+            setValue(1.6, 6.5);
+        else if (ox>=5.8 && ox<=7.0 && oy>=4.0 && oy<=4.8)  //11
+            setValue(5.6, 4.4);
+        else if (ox>=5.8 && ox<=7.0 && oy>=4.8 && oy<=5.6)  //12
+            setValue(5.6, 5.2);
+        else if (ox>=4.0 && ox<=4.8 && oy>=5.8 && oy<=7.0)  //13
+            setValue(4.4, 5.6);
+        else if (ox>=4.8 && ox<=5.6 && oy>=5.8 && oy<=7.0)  //14
+            setValue(5.2, 5.6);
+        else if (ox>=7.0 && ox<=7.9 && oy>=5.6 && oy<=6.6)  //15
+            setValue(7.4, 6.8);
+        else if (ox>=7.9 && ox<=8.75 && oy>=5.6 && oy<=6.6)  //16
+            setValue(8.3, 6.8);
+        else if (ox>=8.75 && ox<=9.6 && oy>=5.6 && oy<=6.6)  //17
+            setValue(9.2, 6.8);
+        else if (ox>=9.6 && ox<=10.5 && oy>=5.6 && oy<=6.6)  //18
+            setValue(10.1, 6.8);
+        else if (ox>=7.0 && ox<=8.75 && oy>=1.5 && oy<=4.0)  //19
+            setValue(6.8, 3.0);
+        else if (ox>=8.75 && ox<=10.5 && oy>=1.5 && oy<=4.0)  //20
+            setValue(10.7, 3.0);
+        else if (ox>=11.5 && ox<=14.5 && oy>=3.5 && oy<=6.6)  //21
+            setValue(11.3, 6.0);
+        else if (ox>=14.5 && ox<=17.5 && oy>=3.5 && oy<=6.6)  //22
+            setValue(17.7, 6.0);
+        else if (ox>=17.5 && ox<=19.0 && oy>=3.0 && oy<=4.9)  //23
+            setValue(18.25, 5.1);
+        else if (ox>=19.0 && ox<=23.0 && oy>=0.0 && oy<=5.5)  //24
+            setValue(20.5, 5.7);
+        else if (ox>=20.0 && ox<=23.0 && oy>=7.5 && oy<=12.8)  //25
+            setValue(21.0, 7.2);
+        else if (ox>=17.5 && ox<=19.0 && oy>=7.0 && oy<=9.0)  //26
+            setValue(18.25, 7.2);
+        else if (ox>=5.6 && ox<=6.6 && oy>=7.0 && oy<=7.87)  //27
+            setValue(6.8, 7.4);
+        else if (ox>=5.6 && ox<=6.6 && oy>=7.87 && oy<=8.75)  //28
+            setValue(6.8, 8.3);
+        else if (ox>=5.6 && ox<=6.6 && oy>=8.75 && oy<=9.62)  //29
+            setValue(6.8, 9.2);
+        else if (ox>=5.6 && ox<=6.6 && oy>=9.62 && oy<=10.5)  //30
+            setValue(6.8, 10.1);
+        else if (ox>=2.0 && ox<=4.0 && oy>=9.0 && oy<=10.5)  //31
+            setValue(3.0, 10.7);
+        else if (ox>=2.0 && ox<=4.0 && oy>=7.0 && oy<=8.0)  //32
+            setValue(2.75, 6.8);
+        else if (ox>=3.5 && ox<=6.5 && oy>=11.5 && oy<=14.5)  //33
+            setValue(5.7, 11.3);
+        else if (ox>=3.5 && ox<=6.5 && oy>=14.5 && oy<=17.5)  //34                             v
+            setValue(5.7, 17.7);
+        else if (ox>=3.0 && ox<=4.9 && oy>=17.5 && oy<=19.0)  //35
+            setValue(5.1, 18.25);
+        else if (ox>=0.0 && ox<=5.5 && oy>=19.0 && oy<=23.0)  //36
+            setValue(5.7, 20.5);
+        else if (ox>=7.5 && ox<=12.8 && oy>=20.0 && oy<=23.0)  //37
+            setValue(7.3, 21.0);
+        else if (ox>=7.0 && ox<=9.0 && oy>=17.5 && oy<=19.0)  //38
+            setValue(7.0, 18.25);
+        else if (ox>=12.8 && ox<=13.5 && oy>=20.0 && oy<=21.0 && floor==0)  //atm
+            setValue(13.25, 19.8);
+        else if (ox>=14.5 && ox<=17.5 && oy>=19.0 && oy<=22.0 && floor==0)  //bank
+            setValue(15.0, 19.0);
+        else if (ox>=18.5 && ox<=23.0 && oy>=15.0 && oy<=17.0 && floor==0)  //office
+            setValue(19.0, 15.0);
+        else if (ox>=14.5 && ox<=23.0 && oy>=14.5 && oy<=23.0 && floor!=0)  //library or canteen
+            setValue(17.0, 17.0);
     }
 }
 
@@ -517,6 +570,10 @@ void display_ground()
 	glFlush();
 	glutSpecialFunc(special);
 	glutMouseFunc(mouse);
+	if (src_marked == 1 && src_floor==floor)
+        drawSource(src_x, src_y);
+    if (dstn_marked == 1 && dstn_floor==floor)
+        drawDestination(dstn_x, dstn_y);
 }
 
 void display_otherfloors()
@@ -540,6 +597,10 @@ void display_otherfloors()
     else if (floor == 4 || floor == 5)
         smallertext("Canteen", 18.0, 18.0);
     glFlush();
+    if (src_marked == 1 && src_floor==floor)
+        drawSource(src_x, src_y);
+    if (dstn_marked == 1 && dstn_floor==floor)
+        drawDestination(dstn_x, dstn_y);
   	glutSpecialFunc(special);
     glutMouseFunc(mouse);
 }
