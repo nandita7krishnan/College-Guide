@@ -3,9 +3,10 @@
 	<iostream>
 	<GL/glut.h>
 
-1493135960 source:/home/mamta/Programming/CG/College-Guide-master/CollegeGuide/main.cpp
+1494430885 source:/home/mamta/Programming/CG/College-Guide-master/CollegeGuide/main.cpp
 	<iostream>
 	<GL/glut.h>
+	<math.h>
 
 1490165791 source:/home/nandita/Documents/OpenGLprojets/CG/CollegeGuide/main.cpp
 	<iostream>
